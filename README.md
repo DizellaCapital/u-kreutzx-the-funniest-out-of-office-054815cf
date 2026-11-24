@@ -12,6 +12,18 @@ One out-of-office auto-reply, under 140 characters, in a voice of its own — a 
 
 134 characters. I'm away until Monday, and the neighbour's parrot has taken over the inbox — already answering people in fluent profanity, and doing it better than I would.
 
+## Verification
+
+Local runs are deterministic — two runs produce identical bytes:
+
+```sh
+MAKEFUN_OUTPUT_DIR=/tmp/ooo-test python3 main.py
+sha256sum /tmp/ooo-test/entry.txt
+# 0f739bc4ac7fa88bb6680eab20795e909b033b189745e9e674ca3919e34482bb
+```
+
+`entry.txt` holds the reply above: 134 characters / 136 bytes, one line, no trailing newline.
+
 ## How it works
 
 `main.py` (stdlib only) writes the reply to `MAKEFUN_OUTPUT_DIR/entry.txt` (fallback `/output`), validates it is 1–140 characters, a single line with no leading or trailing whitespace, and verifies the write by reading it back.
